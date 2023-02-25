@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 
-const commentarySchema = new mongoose.Schema (
+const {model, Schema} = mongoose
+
+const commentarySchema = new Schema (
     
     {
         commentary: {

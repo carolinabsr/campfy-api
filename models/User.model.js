@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
+import validator from 'validator'
 
-const userSchema = new mongoose.Schema (
+const {model, Schema} = mongoose
+
+const userSchema = new Schema (
 
     {
         name: {
@@ -24,7 +27,7 @@ const userSchema = new mongoose.Schema (
             }
         },
         
-        adress: {
+        address: {
             type: String,
             required: true
         },
