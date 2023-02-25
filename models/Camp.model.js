@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
+import validator from 'validator'
 
-const campSchema = new mongoose.Schema (
+const {model, Schema} = mongoose
+
+const campSchema = new Schema (
     
     {
         campName: {
@@ -13,22 +16,22 @@ const campSchema = new mongoose.Schema (
             required: true
         },
         
-        cidade: {
+        city: {
             type: String,
             required: true,
         },
         
-         estado: {
+         state: {
             type: String,
             required: true,
         },
         
-         país: {
+         country: {
             type: String,
             required: true,
         },
         
-         endereço: {
+         adress: {
             type: String,
             required: true,
         },
@@ -44,12 +47,12 @@ const campSchema = new mongoose.Schema (
             }
         },
         
-         descrição: {
+         description: {
             type: String,
             required: true,
         },
         
-         comodidades: {
+         convenience: {
             type: [String],
             required: true,
         }

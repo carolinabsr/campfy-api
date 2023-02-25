@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema (
             }
         },
         
-        endereço: {
+        adress: {
             type: String,
             required: true
         },
