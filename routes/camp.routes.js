@@ -1,9 +1,10 @@
 import {Router} from 'express'
 import Camp from '../models/Camp.model.js'
+import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
 
 const campsRoutes = Router()
 
-campsRoutes.get('/', async (req, res) => {
+campsRoutes.get('/', isAuthenticatedMiddleware, async (req, res) => {
     
     try {
         const camps = await Camp.find()
@@ -15,7 +16,7 @@ campsRoutes.get('/', async (req, res) => {
     }
 })
 
-campsRoutes.get('/:id', async (req, res) => {
+campsRoutes.get('/:id', isAuthenticatedMiddleware, async (req, res) => {
     
     const {id} = req.params
 
@@ -33,7 +34,7 @@ campsRoutes.get('/:id', async (req, res) => {
     }
 })
 
-campsRoutes.post('/', async (req, res) => {
+campsRoutes.post('/', isAuthenticatedMiddleware, async (req, res) => {
     const payload = req.body
 
     try{
@@ -48,7 +49,7 @@ campsRoutes.post('/', async (req, res) => {
     }
 })
 
-campsRoutes.put('/:id', async (req, res) => {
+campsRoutes.put('/:id', isAuthenticatedMiddleware, async (req, res) => {
     
     const {id} = req.params
     const payload = req.body
@@ -66,7 +67,7 @@ campsRoutes.put('/:id', async (req, res) => {
     }
 })
 
-campsRoutes.delete('/:id', async (req, res) => {
+campsRoutes.delete('/:id', isAuthenticatedMiddleware, async (req, res) => {
    
     const {id} = req.params
 

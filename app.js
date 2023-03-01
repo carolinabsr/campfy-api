@@ -4,6 +4,7 @@ import cors from 'cors'
 import authRouter from './routes/auth.routes.js'
 import campsRoutes from './routes/camp.routes.js'
 import commentariesRoutes from './routes/commentary.routes.js'
+import usersRoutes from './routes/users.routes.js'
 
 
 const app = express()
@@ -13,6 +14,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/camps', campsRoutes)
 app.use('/commentary', commentariesRoutes)
+app.use('/users', usersRoutes)
 app.use(authRouter)
 
 app.listen(process.env.PORT, () => console.log('Server listening on port: ', process.env.PORT))
