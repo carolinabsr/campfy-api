@@ -36,4 +36,49 @@ authRouter.post('/sign-up', async(req, res) => {
     }
 })
 
+
+authRouter.post('/login', async (req, res)=> {
+    const { email, password } = req.body
+
+    console.log(email, password)
+
+    try {
+        if(!email) {
+            throw new Error('Empty e-mail')
+        }
+
+        if(!password) {
+            throw new Error('Empty Password')
+        }
+
+        const user = await User.findOne({email})
+        if(!user) {
+            throw new Error ('User does not exist')
+        }
+
+        console.log(user)
+        console.log('hash', password, user.passwordHash)
+
+        const passwordMatch = bcrypt.compareSync(password, user.passwordHash)
+
+        if(!passwordMatch) {
+            throw new Error('Password does not match')
+        }
+
+        const secret = process.env.JWT_SECRET
+        const expiresIn = process.env.JWT_EXPIRES
+
+       
+        const token = jwt.sign({id: user._id, email: user.email}, secret, {expiresIn})
+        
+        return res.status(200).json({token})
+    } catch (error) {
+        console.log(error)
+        return res.status(401).json({message: 'Unauthorized'})
+    }
+})
+ 
+    
+
+
 export default authRouter

@@ -1,9 +1,10 @@
 import {Router} from 'express'
 import Commentary from '../models/Commentary.model.js'
+import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
 
 const commentariesRoutes = Router()
 
-commentariesRoutes.get('/', async (req, res) => {
+commentariesRoutes.get('/', isAuthenticatedMiddleware, async (req, res) => {
     
     try {
         const commentaries = await Commentary.find()
@@ -15,7 +16,7 @@ commentariesRoutes.get('/', async (req, res) => {
     }
 })
 
-commentariesRoutes.get('/:id', async (req, res) => {
+commentariesRoutes.get('/:id', isAuthenticatedMiddleware, async (req, res) => {
     
     const {id} = req.params
 
@@ -33,7 +34,7 @@ commentariesRoutes.get('/:id', async (req, res) => {
     }
 })
 
-commentariesRoutes.post('/', async (req, res) => {
+commentariesRoutes.post('/', isAuthenticatedMiddleware, async (req, res) => {
     const payload = req.body
 
     try{
@@ -48,7 +49,7 @@ commentariesRoutes.post('/', async (req, res) => {
     }
 })
 
-commentariesRoutes.put('/:id', async (req, res) => {
+commentariesRoutes.put('/:id', isAuthenticatedMiddleware, async (req, res) => {
     
     const {id} = req.params
     const payload = req.body
@@ -66,7 +67,7 @@ commentariesRoutes.put('/:id', async (req, res) => {
     }
 })
 
-commentariesRoutes.delete('/:id', async (req, res) => {
+commentariesRoutes.delete('/:id', isAuthenticatedMiddleware, async (req, res) => {
    
     const {id} = req.params
 
