@@ -11,12 +11,16 @@ const app = express()
 connectDb()
 
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+    origin: ['http://localhost:3000', process.env.REACT_URL]
+}))
+
 app.use('/camps', campsRoutes)
 app.use('/commentary', commentariesRoutes)
 app.use('/users', usersRoutes)
 app.use(authRouter)
 
-app.listen(process.env.PORT, () => console.log('Server listening on port: ', process.env.PORT))
+app.listen(process.env.PORT || 3001, () => console.log('Server listening on port: ', process.env.PORT || 3001))
 
 
