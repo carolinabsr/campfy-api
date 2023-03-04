@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import Camp from '../models/Camp.model.js'
+import Commentary from '../models/Camp.model.js'
 import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
 import isAdmin from '../middlewares/isAdmin.js'
 
@@ -23,7 +24,8 @@ campsRoutes.get('/:id', isAuthenticatedMiddleware, async (req, res) => {
     const {id} = req.params
 
     try {
-        const camp = await Camp.findById(id)
+        const camp = await Camp.findById(id).populate('commentary')
+            
 
         if(!camp) {
             return res.status(404).json({message: 'Not Found'})
@@ -57,7 +59,7 @@ campsRoutes.put('/:id', [isAuthenticatedMiddleware, isAdmin], async (req, res) =
     const payload = req.body
 
     try {
-        const updatedCamp = await Camp.findOneAndUpdate({_id: id}, payload, {new: true})
+        const updatedCamp = await Camp.findOneAndUpdate({_id: id}, payload, {$push: {commentary: updatedCamp._id}}, {new: true})
         if(!updatedCamp){
             return res.status(404).json({message: 'Not Found'})
         }

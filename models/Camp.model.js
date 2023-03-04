@@ -56,7 +56,12 @@ const campSchema = new Schema (
          convenience: {
             type: [String],
             required: true,
-        }
+        },
+
+        commentary: [{
+            type: Schema.Types.ObjectId,
+            ref: "Commentary"
+        }],
         
     }, {timestamps: true});
     

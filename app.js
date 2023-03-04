@@ -17,8 +17,8 @@ app.use(cors({
 }))
 
 app.use('/camps', campsRoutes)
-app.use('/commentary', commentariesRoutes)
 app.use('/users', usersRoutes)
+app.use(commentariesRoutes)
 app.use(authRouter)
 
 app.listen(process.env.PORT || 3001, () => console.log('Server listening on port: ', process.env.PORT || 3001))
