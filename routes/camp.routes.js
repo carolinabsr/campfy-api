@@ -6,7 +6,7 @@ import isAdmin from '../middlewares/isAdmin.js'
 
 const campsRoutes = Router()
 
-campsRoutes.get('/', [isAuthenticatedMiddleware, isAdmin], async (req, res) => {
+campsRoutes.get('/', async (req, res) => {
     
     try {
         const camps = await Camp.find()
@@ -18,7 +18,7 @@ campsRoutes.get('/', [isAuthenticatedMiddleware, isAdmin], async (req, res) => {
     }
 })
 
-campsRoutes.get('/:id', [isAuthenticatedMiddleware, isAdmin], async (req, res) => {
+campsRoutes.get('/:id', isAuthenticatedMiddleware, async (req, res) => {
     
     const {id} = req.params
 
