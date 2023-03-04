@@ -40,8 +40,6 @@ authRouter.post('/sign-up', async(req, res) => {
 authRouter.post('/login', async (req, res)=> {
     const { email, password } = req.body
 
-    console.log(email, password)
-
     try {
         if(!email) {
             throw new Error('Empty e-mail')
@@ -57,7 +55,7 @@ authRouter.post('/login', async (req, res)=> {
         }
 
         console.log(user)
-        console.log('hash', password, user.passwordHash)
+        
 
         const passwordMatch = bcrypt.compareSync(password, user.passwordHash)
 
