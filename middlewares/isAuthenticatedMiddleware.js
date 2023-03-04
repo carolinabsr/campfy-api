@@ -22,6 +22,8 @@ const isAuthenticatedMiddleware = (req, res, next) => {
         next()
     } catch (error) {
         console.log(error)
+        console.log(`token: ${token}`)
+        console.log(`req: ${req}`)
         res.status(401).json({message: 'Unauthorized'})
     }
 }
