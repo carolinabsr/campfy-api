@@ -71,7 +71,8 @@ authRouter.post('/login', async (req, res)=> {
        
         const token = jwt.sign({id: user._id, email: user.email}, secret, {expiresIn})
         
-        return res.status(200).json({token})
+        return res.status(200).json({user: {_id: user._id, name:user.name}, logged: true, jwt: token})
+
     } catch (error) {
         console.log(error)
         return res.status(401).json({message: 'Unauthorized'})
