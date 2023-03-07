@@ -35,13 +35,13 @@ commentariesRoutes.get('/commentary/:id', isAuthenticatedMiddleware, async (req,
     }
 })
 
-commentariesRoutes.post('/camps/:id/commentary', isAuthenticatedMiddleware, async (req, res) => {
+commentariesRoutes.post('/camps/:campId/commentary', isAuthenticatedMiddleware, async (req, res) => {
 
     const {campId} = req.params
     const payload = req.body
 
     try{
-        const newCommentary = await Commentary.create(payload)
+        const newCommentary = await Commentary.create({...payload, camp: campId, user: req.user.id})
         const camp = await Camp.findOneAndUpdate({_id: campId}, {$push: {commentary: newCommentary._id}})
         return res.status(201).json(newCommentary)
     } catch (error) {
