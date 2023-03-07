@@ -24,7 +24,7 @@ campsRoutes.get('/:id', isAuthenticatedMiddleware, async (req, res) => {
     const {id} = req.params
 
     try {
-        const camp = await Camp.findById(id).populate('commentary')
+        const camp = await Camp.findById(id).populate('commentary').populate({path: "commentary", populate: {path: "user", model: "User"}})
             
 
         if(!camp) {
