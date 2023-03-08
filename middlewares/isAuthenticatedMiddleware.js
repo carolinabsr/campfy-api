@@ -11,7 +11,10 @@ const getTokenFromHeaders = req => {
 const isAuthenticatedMiddleware = (req, res, next) => {
     const token = getTokenFromHeaders(req)
 
+
     if(!token) {
+
+        console.log(`token: ${token}`)
         return res.status(401).json({message: 'Unauthorized'})
     }
 
