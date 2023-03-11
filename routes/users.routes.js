@@ -81,5 +81,9 @@ usersRoutes.post("/upload", [isAuthenticatedMiddleware, fileUpload.single('profi
     res.status(201).json({url: req.file.path})
 }) 
 
+usersRoutes.put("/upload", [isAuthenticatedMiddleware, fileUpload.single('profileImage')], (req, res) => {
+    console.log(req.file)
+    res.status(201).json({url: req.file.path})
+}) 
 
 export default usersRoutes
