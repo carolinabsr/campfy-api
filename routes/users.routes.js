@@ -2,6 +2,7 @@ import {Router} from 'express'
 import 'dotenv/config'
 import User from '../models/User.model.js'
 import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
+import fileUpload from '../config/cloudinary.config.js'
 
 
 const usersRoutes = Router()
@@ -74,6 +75,11 @@ usersRoutes.delete('/:id', isAuthenticatedMiddleware, async (req, res) => {
         return res.status(500).json({message:'Internal server error'})
     }
 })
+
+usersRoutes.post("/upload", [isAuthenticatedMiddleware, fileUpload.single('profileImage')], (req, res) => {
+    console.log(req.file)
+    res.status(201).json({url: req.file.path})
+}) 
 
 
 export default usersRoutes
