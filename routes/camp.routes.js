@@ -3,6 +3,7 @@ import Camp from '../models/Camp.model.js'
 import Commentary from '../models/Camp.model.js'
 import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
 import isAdmin from '../middlewares/isAdmin.js'
+import fileUpload from '../config/cloudinary.config.js'
 
 
 const campsRoutes = Router()
@@ -91,5 +92,10 @@ campsRoutes.delete('/:id', [isAuthenticatedMiddleware, isAdmin], async (req, res
         return res.status(500).json({message:'Internal server error'})
     }
 })
+
+campsRoutes.post("/upload", [isAuthenticatedMiddleware, fileUpload.single('campImage')], (req, res) => {
+    console.log(req.file)
+    res.status(201).json({url: req.file.path})
+}) 
 
 export default campsRoutes
