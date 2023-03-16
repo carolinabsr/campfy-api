@@ -60,7 +60,7 @@ campsRoutes.put('/:id', [isAuthenticatedMiddleware, isAdmin], async (req, res) =
     const payload = req.body
 
     try {
-        const updatedCamp = await Camp.findOneAndUpdate({_id: id}, payload, {$push: {commentary: updatedCamp._id}}, {new: true})
+        const updatedCamp = await Camp.findOneAndUpdate({_id: id}, payload, {new: true})
         if(!updatedCamp){
             return res.status(404).json({message: 'Not Found'})
         }
