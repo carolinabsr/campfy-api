@@ -98,4 +98,9 @@ campsRoutes.post("/upload", [isAuthenticatedMiddleware, fileUpload.single('campI
     res.status(201).json({url: req.file.path})
 }) 
 
+campsRoutes.put("/upload", [isAuthenticatedMiddleware, fileUpload.single('campImage')], (req, res) => {
+    console.log(req.file)
+    res.status(201).json({url: req.file.path})
+}) 
+
 export default campsRoutes
